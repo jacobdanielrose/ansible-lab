@@ -25,7 +25,7 @@
 
     - name: Download solr.
       get_url: 
-        url: "https://www.apache.org/dyn/closer.lua/solr/solr/{{ solr_version }}/solr-{{ solr_version }}.tgz"
+        url: "https://dlcdn.apache.org/solr/solr/{{ solr_version }}/solr-{{ solr_version }}.tgz"
         dest: "{{ download_dir }}/solr-{{solr_version}}.tgz"
         checksum: "{{ solr_checksum }}"
         
@@ -34,7 +34,7 @@
         src: "{{ download_dir }}/solr-{{ solr_version }}.tgz"
         dest: "{{ download_dir }}"
         remote_src: true
-        creates: "{{ download_dir }}/solr-{{ solr_version }}/README"
+        creates: "{{ download_dir }}/solr-{{ solr_version }}/README.txt"
 
     - name: Run Solr installation script
       command: >
@@ -50,4 +50,5 @@
     - name: Ensure solr is started and enable at boot
       service: 
         name: solr
+        state: started
         enabled: yes
